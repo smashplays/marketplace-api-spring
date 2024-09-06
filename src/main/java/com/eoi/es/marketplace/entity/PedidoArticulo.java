@@ -18,7 +18,7 @@ import lombok.Setter;
 @Setter
 public class PedidoArticulo {
 
-    @Id
+	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
