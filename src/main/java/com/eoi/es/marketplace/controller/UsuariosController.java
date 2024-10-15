@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import com.eoi.es.marketplace.dto.ArticuloDto;
 import com.eoi.es.marketplace.dto.UsuarioDto;
 import com.eoi.es.marketplace.service.UsuarioService;
 
@@ -22,6 +23,12 @@ public class UsuariosController {
 		List<UsuarioDto> usuarios = usuarioService.findAll();
 		return new ResponseEntity<>(usuarios, HttpStatus.OK);
 	}
+	
+	@GetMapping("/{nombreparcial}/nombre")
+	public ResponseEntity<List<UsuarioDto>> getArticulosByNombreParcial(@PathVariable String nombreparcial) {
+		List<UsuarioDto> usuarios = usuarioService.findByNombreParcial(nombreparcial);
+		return new ResponseEntity<>(usuarios, HttpStatus.OK);
+	}
 
 	@GetMapping("/{id}")
 	public ResponseEntity<UsuarioDto> getUsuarioById(@PathVariable String id) {
@@ -32,6 +39,16 @@ public class UsuariosController {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
+	
+	@DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteUsuarioById(@PathVariable String id) {
+        try {
+            usuarioService.deleteById(id);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
 
 	@PostMapping
 	public ResponseEntity<Void> createUsuario(@RequestBody UsuarioDto usuarioDto) {

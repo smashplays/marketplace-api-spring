@@ -32,6 +32,16 @@ public class ArticulosController {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
+	
+	@DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteArticuloById(@PathVariable String id) {
+        try {
+            articuloService.deleteById(id);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
 
 	@PostMapping
 	public ResponseEntity<Void> createArticulo(@RequestBody ArticuloDto articuloDto) {

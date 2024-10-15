@@ -16,9 +16,13 @@ public class ArticuloService {
 	ArticuloRepository articuloRepository;
 
 	public ArticuloDto findById(String id) {
-
-		ArticuloDto articuloDto = new ArticuloDto();
 		Articulo entity = articuloRepository.findById(Integer.valueOf(id)).get();
+		
+		if (entity == null) {
+			return null;
+		}
+		
+		ArticuloDto articuloDto = new ArticuloDto();
 		articuloDto.setId(String.valueOf(entity.getId()));
 		articuloDto.setNombre(entity.getNombre());
 		articuloDto.setPrecio(entity.getPrecio());
@@ -42,6 +46,10 @@ public class ArticuloService {
 		}
 
 		return dtos;
+	}
+	
+	public void deleteById(String id) {
+		articuloRepository.deleteById(Integer.valueOf(id));
 	}
 
 	public void create(ArticuloDto dto) {

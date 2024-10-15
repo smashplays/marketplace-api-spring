@@ -17,8 +17,12 @@ public class UsuarioService {
 
 	public UsuarioDto findById(String id) {
 
-		UsuarioDto usuarioDto = new UsuarioDto();
 		Usuario entity = usuarioRepository.findById(Integer.valueOf(id)).get();
+		if (entity == null) {
+			return null;
+		}
+		
+		UsuarioDto usuarioDto = new UsuarioDto();		
 		usuarioDto.setId(String.valueOf(entity.getId()));
 		usuarioDto.setNombre(entity.getNombre());
 		usuarioDto.setPassword(entity.getPassword());
@@ -43,6 +47,22 @@ public class UsuarioService {
 		return dtos;
 
 	}
+	
+	public List<UsuarioDto> findByNombreParcial(String nombre) {
+		List<UsuarioDto> dtos = new ArrayList<>();
+		List<Usuario> entities = usuarioRepository.findByNombreContainingIgnoreCase(nombre);
+
+		for (Usuario usuario : entities) {
+			UsuarioDto dto = new UsuarioDto();
+			dto.setId(String.valueOf(usuario.getId()));
+			dto.setNombre(usuario.getNombre());
+			dto.setPassword(usuario.getPassword());
+
+			dtos.add(dto);
+		}
+
+		return dtos;
+	}
 
 	public void create(UsuarioDto dto) {
 
@@ -52,6 +72,10 @@ public class UsuarioService {
 
 		usuarioRepository.save(entity);
 
+	}
+	
+	public void deleteById(String id) {
+		usuarioRepository.deleteById(Integer.valueOf(id));
 	}
 
 	public void update(UsuarioDto dto) {
