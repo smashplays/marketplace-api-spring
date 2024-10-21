@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.eoi.es.marketplace.dto.ArticuloDto;
+import com.eoi.es.marketplace.dto.UsuarioDto;
 import com.eoi.es.marketplace.service.ArticuloService;
 
 @RestController
@@ -17,12 +18,21 @@ public class ArticulosController {
 	@Autowired
 	private ArticuloService articuloService;
 
+	@CrossOrigin(origins = "*")
+	@GetMapping
+	public ResponseEntity<List<ArticuloDto>> getAllArticulos() {
+		List<ArticuloDto> articulos = articuloService.findAll();
+		return new ResponseEntity<>(articulos, HttpStatus.OK);
+	}
+	
+	@CrossOrigin(origins = "*")
 	@GetMapping("/{nombreparcial}/nombre")
 	public ResponseEntity<List<ArticuloDto>> getArticulosByNombreParcial(@PathVariable String nombreparcial) {
 		List<ArticuloDto> articulos = articuloService.findByNombreParcial(nombreparcial);
 		return new ResponseEntity<>(articulos, HttpStatus.OK);
 	}
 
+	@CrossOrigin(origins = "*")
 	@GetMapping("/{id}")
 	public ResponseEntity<ArticuloDto> getArticuloById(@PathVariable String id) {
 		ArticuloDto articulo = articuloService.findById(id);
@@ -33,6 +43,7 @@ public class ArticulosController {
 		}
 	}
 	
+	@CrossOrigin(origins = "*")
 	@DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteArticuloById(@PathVariable String id) {
         try {
@@ -43,12 +54,14 @@ public class ArticulosController {
         }
     }
 
+	@CrossOrigin(origins = "*")
 	@PostMapping
 	public ResponseEntity<Void> createArticulo(@RequestBody ArticuloDto articuloDto) {
 		articuloService.create(articuloDto);
 		return new ResponseEntity<>(HttpStatus.CREATED);
 	}
 
+	@CrossOrigin(origins = "*")
 	@PutMapping("/{id}")
 	public ResponseEntity<Void> updateArticulo(@PathVariable String id, @RequestBody ArticuloDto articuloDto) {
 		articuloDto.setId(id);

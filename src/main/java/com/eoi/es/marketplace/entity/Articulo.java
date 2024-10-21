@@ -15,18 +15,20 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Articulo {
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
-	
-	@Column
-	private String nombre;
-	
-	@Column
-	private int precio;
-	
-	@Column
-	private int stock;
-	
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+
+    @Column
+    private String nombre;
+
+    @Column
+    private int precio;
+
+    @Column
+    private int stock;
+
+    @Column
+    private int vecesPedido;
 }

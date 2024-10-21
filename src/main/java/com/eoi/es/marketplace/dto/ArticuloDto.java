@@ -12,12 +12,15 @@ import lombok.Setter;
 @NoArgsConstructor
 @Builder
 public class ArticuloDto {
-	
-	private String id;
-	
-	private String nombre;
 
-	private int precio;
-	
-	private int stock;
+    private String id;
+
+    private String nombre;
+
+    private int precio;
+
+    private int stock;
+
+    private int vecesPedido;
 }
+

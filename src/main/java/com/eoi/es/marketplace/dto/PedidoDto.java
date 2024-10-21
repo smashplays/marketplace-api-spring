@@ -15,14 +15,10 @@ import lombok.Setter;
 @NoArgsConstructor
 @Builder
 public class PedidoDto {
-
     private String id;
-    
     private String nombre;
-    
     private Date fecha;
-    
     private String usuario_id;
-    
     private List<ArticuloCantidadDto> articulos;
+    private double total;
 }

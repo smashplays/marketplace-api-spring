@@ -18,18 +18,21 @@ public class UsuariosController {
 	@Autowired
 	private UsuarioService usuarioService;
 
+	@CrossOrigin(origins = "*")
 	@GetMapping
 	public ResponseEntity<List<UsuarioDto>> getAllUsuarios() {
 		List<UsuarioDto> usuarios = usuarioService.findAll();
 		return new ResponseEntity<>(usuarios, HttpStatus.OK);
 	}
 	
+	@CrossOrigin(origins = "*")
 	@GetMapping("/{nombreparcial}/nombre")
 	public ResponseEntity<List<UsuarioDto>> getArticulosByNombreParcial(@PathVariable String nombreparcial) {
 		List<UsuarioDto> usuarios = usuarioService.findByNombreParcial(nombreparcial);
 		return new ResponseEntity<>(usuarios, HttpStatus.OK);
 	}
 
+	@CrossOrigin(origins = "*")
 	@GetMapping("/{id}")
 	public ResponseEntity<UsuarioDto> getUsuarioById(@PathVariable String id) {
 		UsuarioDto usuario = usuarioService.findById(id);
@@ -40,6 +43,7 @@ public class UsuariosController {
 		}
 	}
 	
+	@CrossOrigin(origins = "*")
 	@DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteUsuarioById(@PathVariable String id) {
         try {
@@ -50,12 +54,14 @@ public class UsuariosController {
         }
     }
 
+	@CrossOrigin(origins = "*")
 	@PostMapping
 	public ResponseEntity<Void> createUsuario(@RequestBody UsuarioDto usuarioDto) {
 		usuarioService.create(usuarioDto);
 		return new ResponseEntity<>(HttpStatus.CREATED);
 	}
 
+	@CrossOrigin(origins = "*")
 	@PutMapping("/{id}")
 	public ResponseEntity<Void> updateUsuario(@PathVariable String id, @RequestBody UsuarioDto usuarioDto) {
 		usuarioDto.setId(id);
@@ -63,6 +69,7 @@ public class UsuariosController {
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
+	@CrossOrigin(origins = "*")
 	@PostMapping("/login")
 	public ResponseEntity<UsuarioDto> loginUsuario(@RequestBody UsuarioDto usuarioDto) {
 		UsuarioDto usuarioValidado = usuarioService.validarUsuario(usuarioDto);

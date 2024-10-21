@@ -14,6 +14,7 @@ import lombok.Setter;
 public class ArticuloCantidadDto {
 
     private String id;
-    
+    private String nombre;
     private int cantidad;
 }
+

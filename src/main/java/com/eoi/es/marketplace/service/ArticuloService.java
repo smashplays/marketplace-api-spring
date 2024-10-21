@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.eoi.es.marketplace.dto.ArticuloDto;
+import com.eoi.es.marketplace.dto.UsuarioDto;
 import com.eoi.es.marketplace.entity.Articulo;
+import com.eoi.es.marketplace.entity.Usuario;
 import com.eoi.es.marketplace.repository.ArticuloRepository;
 
 @Service
@@ -27,8 +29,29 @@ public class ArticuloService {
 		articuloDto.setNombre(entity.getNombre());
 		articuloDto.setPrecio(entity.getPrecio());
 		articuloDto.setStock(entity.getStock());
+		articuloDto.setVecesPedido(entity.getVecesPedido());
 
 		return articuloDto;
+	}
+	
+	public List<ArticuloDto> findAll() {
+
+		List<ArticuloDto> dtos = new ArrayList<ArticuloDto>();
+		List<Articulo> entities = articuloRepository.findAll();
+
+		for (Articulo articulo : entities) {
+			ArticuloDto dto = new ArticuloDto();
+			dto.setId(String.valueOf(articulo.getId()));
+			dto.setNombre(articulo.getNombre());
+			dto.setPrecio(articulo.getPrecio());
+			dto.setStock(articulo.getStock());
+			dto.setVecesPedido(articulo.getVecesPedido());
+
+			dtos.add(dto);
+		}
+
+		return dtos;
+
 	}
 
 	public List<ArticuloDto> findByNombreParcial(String nombre) {
@@ -41,7 +64,7 @@ public class ArticuloService {
 			dto.setNombre(articulo.getNombre());
 			dto.setPrecio(articulo.getPrecio());
 			dto.setStock(articulo.getStock());
-
+			dto.setVecesPedido(articulo.getVecesPedido());
 			dtos.add(dto);
 		}
 
